@@ -90,6 +90,7 @@ export default function JobProposals() {
                     </div>
                     <p className="text-sm text-slate-500">{f?.headline}</p>
                     <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">{p.coverLetter}</p>
+                    <Link to={`/proposals/${p._id}`} className="mt-1 inline-block text-xs text-brand-600 hover:underline">View proposal details</Link>
                     <div className="mt-3"><SkillChips skills={f?.skills?.slice(0, 6)} /></div>
                     <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
                       <span>Bid: <b className="text-slate-800">${p.proposedAmount}</b></span>

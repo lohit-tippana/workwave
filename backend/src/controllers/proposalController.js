@@ -182,7 +182,7 @@ const acceptProposal = asyncHandler(async (req, res) => {
 
 const getProposal = asyncHandler(async (req, res) => {
   const proposal = await Proposal.findById(req.params.id)
-    .populate('jobId', 'title status clientId')
+    .populate('jobId', 'title status clientId budget budgetType deadline category')
     .populate('freelancerId', 'name headline skills rating reviewCount profileImage yearsOfExperience hourlyRate location bio');
   if (!proposal) throw ApiError.notFound('Proposal not found');
   const isFreelancer = proposal.freelancerId._id.equals(req.user._id);

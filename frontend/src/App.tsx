@@ -28,6 +28,7 @@ import ResumePage from './pages/freelancer/ResumePage';
 
 import Projects from './pages/shared/Projects';
 import ProjectDetail from './pages/shared/ProjectDetail';
+import ProposalDetail from './pages/shared/ProposalDetail';
 import Messages from './pages/shared/Messages';
 import Profile from './pages/shared/Profile';
 
@@ -98,6 +99,12 @@ export default function App() {
               <Route path="/freelancer/resume" element={<ResumePage />} />
               <Route path="/freelancer/ai-analysis" element={<ResumePage />} />
               <Route path="/freelancer/profile" element={<Profile />} />
+            </Route>
+          </Route>
+
+          <Route element={<RequireAuth roles={['client', 'freelancer']} />}>
+            <Route element={<AppLayout />}>
+              <Route path="/proposals/:id" element={<ProposalDetail />} />
             </Route>
           </Route>
 

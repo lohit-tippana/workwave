@@ -59,12 +59,13 @@ export default function MyProposals() {
                 <div key={p._id} className="card">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <Link to={`/freelancer/jobs/${job?._id}`} className="font-semibold hover:text-brand-700">{job?.title || 'Job'}</Link>
+                      <Link to={`/proposals/${p._id}`} className="font-semibold hover:text-brand-700">{job?.title || 'Job'}</Link>
                       <p className="mt-1 line-clamp-2 text-sm text-slate-600">{p.coverLetter}</p>
                       <p className="mt-2 text-xs text-slate-500">Bid ${p.proposedAmount} · {p.estimatedDays} days · {new Date(p.createdAt).toLocaleDateString()}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <StatusBadge status={p.status} />
+                      <Link to={`/proposals/${p._id}`} className="btn-secondary text-xs">View</Link>
                       {['PENDING', 'SHORTLISTED'].includes(p.status) && (
                         <>
                           <button className="btn-secondary text-xs" onClick={() => openEdit(p)}>Edit</button>
