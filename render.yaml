@@ -1,0 +1,38 @@
+# Render blueprint — deploys WorkWave as a single web service.
+# The backend builds the React frontend and serves it from /, while /api/*
+# stays on the same origin (no CORS or proxy config needed).
+#
+# Required env var: MONGO_URI (MongoDB Atlas free M0 cluster works).
+# If MONGO_URI is left empty the app boots on an ephemeral in-memory
+# database and auto-seeds demo data — fine for a quick demo, but data
+# resets on every deploy/restart.
+
+services:
+  - type: web
+    name: workwave
+    runtime: node
+    plan: free
+    buildCommand: cd frontend && npm install --include=dev && npm run build && cd ../backend && npm install
+    startCommand: node backend/src/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGO_URI
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: EMAIL_FROM
+        sync: false

@@ -111,6 +111,17 @@ docker compose up --build
 # frontend: http://localhost:5173, api: http://localhost:5000, mongo: internal
 ```
 
+## Deploy (Render)
+
+The repo includes `render.yaml` — a one-service blueprint (the API serves the built React app, so `/api` stays same-origin).
+
+1. Push the repo to GitHub (done: `git push -u origin main`).
+2. On [Render](https://dashboard.render.com) → **New → Blueprint** → connect this repo → **Apply**.
+3. When prompted, set `MONGO_URI` to a MongoDB Atlas connection string (free M0 cluster).
+   - Skip it for a zero-config demo: the app falls back to an ephemeral in-memory DB with seeded demo data.
+4. Optionally set `GEMINI_API_KEY`, `RAZORPAY_*`, `CLOUDINARY_*` — every feature degrades cleanly without them.
+5. Deploy → your app is live at `https://workwave.onrender.com`.
+
 ## API overview
 
 Consistent envelope: `{ success, message, data }` — errors: `{ success:false, message, details? }`.

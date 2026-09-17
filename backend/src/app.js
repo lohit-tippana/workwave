@@ -34,6 +34,17 @@ app.use('/uploads', express.static(config.uploadDir));
 app.get('/api/health', (req, res) => res.json({ success: true, message: 'WorkWave API is healthy', data: { uptime: process.uptime() } }));
 
 app.use('/api', routes);
+
+// In production, serve the built frontend so the app runs as a single service.
+const distDir = path.join(__dirname, '..', '..', 'frontend', 'dist');
+if (config.nodeEnv === 'production' && require('fs').existsSync(distDir)) {
+  app.use(express.static(distDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) return next();
+    return res.sendFile(path.join(distDir, 'index.html'));
+  });
+}
+
 app.use(notFound);
 app.use(errorHandler);
 
