@@ -8,3 +8,5 @@ backend/uploads/
 coverage/
 .DS_Store
 .vite/
+
+tsbuildinfo
