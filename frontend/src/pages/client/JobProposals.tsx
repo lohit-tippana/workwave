@@ -50,7 +50,11 @@ export default function JobProposals() {
   };
 
   if (loading) return <Spinner />;
-  if (!data) return <EmptyState title="Job not found" />;
+  if (!data) {
+    return error
+      ? <EmptyState title="Couldn't load proposals" hint={error} action={<button className="btn-primary" onClick={load}>Try again</button>} />
+      : <EmptyState title="Job not found" />;
+  }
 
   return (
     <div>
